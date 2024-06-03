@@ -1,0 +1,100 @@
+/* Reset some basic elements */
+body, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background: url('./images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+}
+
+/* Container styling */
+.container {
+    display: flex;
+}
+
+/* Sidebar styling */
+aside {
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    padding: 20px;
+    width: 300px;
+    min-height: 100vh; /* Full height of the viewport */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: width 0.3s ease;
+}
+
+/* Minimized sidebar */
+aside.minimized {
+    width: 50px;
+}
+
+aside.minimized .sidebar, aside.minimized .logo h2 {
+    display: none;
+}
+
+aside.minimized .top .close {
+    display: flex;
+    justify-content: center;
+}
+
+/* Top section styling */
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.logo h2 {
+    font-size: 1.5em;
+    color: #fff;
+}
+
+#close-btn {
+    cursor: pointer;
+}
+
+/* Sidebar content styling */
+.sidebar h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.sidebar p {
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Weather and warning sections */
+.weather, .warning {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Warning section specific styling */
+.warning h3 {
+    color: red;
+}
+
+.warning p {
+    color: #fff;
+}
+
+/* Styling for material icons */
+.material-icons-sharp {
+    font-size: 1.5em;
+    color: #fff;
+}
