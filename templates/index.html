@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Dashboard using HTML CSS and JavaScript</title>
+    <!-- MATERIAL CDN -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h1>Real-Time Data</h1>
+    <div id="data"></div>
+
+    <script>
+      // Function to update the data on the web page
+      function updateData(data) {
+        var dataElement = document.getElementById("data");
+        dataElement.innerText = JSON.stringify(data, null, 4);
+      }
+
+      // Function to fetch real-time data from the server
+      function fetchData() {
+        fetch("/data")
+          .then((response) => response.text())
+          .then((data) => {
+            var jsonData = JSON.parse(data.slice(6)); // Remove 'data: ' prefix
+            updateData(jsonData);
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      // Function to create EventSource object and handle SSE updates
+      function connectToSSE() {
+        var eventSource = new EventSource("/data");
+
+        // Event listener for receiving data updates
+        eventSource.onmessage = function (event) {
+          var data = JSON.parse(event.data);
+          updateData(data);
+        };
+
+        // Event listener for handling SSE errors
+        eventSource.onerror = function (error) {
+          console.error("EventSource failed:", error);
+          // Automatically reconnect after SSE error
+          setTimeout(connectToSSE, 1000);
+        };
+      }
+
+      // Fetch real-time data initially
+      fetchData();
+
+      // Set interval to fetch real-time data periodically
+      setInterval(fetchData, 10000); // Fetch every 10 seconds
+      setInterval(updateData, 15000);
+
+      // Connect to SSE for real-time updates
+      connectToSSE();
+    </script>
+  </body>
+</html>
