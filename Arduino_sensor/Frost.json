@@ -1,0 +1,23 @@
+{
+  "name": "Group 11",
+  "description": "IoT-based Urban Gardening 2024",
+  "properties": {
+    "frequency": "30 s",
+    "groupNo": 11,
+    "DevEUI": "002A862DA290C679"
+  },
+  "Locations": [
+    {
+      "name": "TUM, Arcisstr. 21 - Testlocation",
+      "description": "Test location",
+      "encodingType": "application/vnd.geo+json",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          11.568654,
+          48.148653
+        ]
+      }
+    }
+  ]
+}
