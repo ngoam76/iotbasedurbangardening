@@ -1,15 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* -------------------- ROOT VARIABLES -------------------- */
+:root {
+    --color-white: #fff;
+    --color-info-dark: #e5e5e5;
+    --color-info-light: #fafafa;
+    --color-dark: #262626;
+    --color-light: #d4d4d4;
+
+    --color-background: #fafafa;
+    --color-backgroundcard: #737373;
+
+    --card-border-radius: 0.5rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
 /* Reset some basic elements */
-body, h2, h3, p {
+body, h1, h2, h3, p {
     margin: 0;
     padding: 0;
 }
 
 /* General body styling */
 body {
-    font-family: Arial, sans-serif;
-    background: url('./images/background.jpg') no-repeat center center fixed;
+    font-family: roboto, sans-serif;
+    /* background: url('./images/background.jpg') no-repeat center center fixed; */
     background-size: cover;
-    color: #fff;
+    background-color: var(--color-background);
+    /* color: #fff; */
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--color-dark);
 }
 
 /* Container styling */
@@ -19,25 +49,24 @@ body {
 
 /* Sidebar styling */
 aside {
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    background-color: var(--color-backgroundcard); /* Semi-transparent background */
     padding: 20px;
     width: 300px;
     min-height: 100vh; /* Full height of the viewport */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 0 5px var(--box-shadow);
     transition: width 0.3s ease;
 }
 
 /* Minimized sidebar */
 aside.minimized {
-    width: 50px;
+    width: 20px;
 }
 
 aside.minimized .sidebar, aside.minimized .logo h2 {
     display: none;
 }
 
-aside.minimized .top .close {
-    display: flex;
+aside.minimized .top {
     justify-content: center;
 }
 
@@ -49,31 +78,43 @@ aside.minimized .top .close {
     margin-bottom: 20px;
 }
 
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    cursor: pointer;
+}
+
 .logo img {
     width: 50px;
     height: 50px;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 .logo h2 {
     font-size: 1.5em;
     color: #fff;
+    text-align: center;
+    margin-top: 20px;
 }
 
-#close-btn {
+#toggle-btn {
     cursor: pointer;
 }
 
 /* Sidebar content styling */
 .sidebar h3 {
     margin-bottom: 10px;
+    margin-top: 10px;
     font-size: 1.2em;
+    color: #fff;
 }
 
 .sidebar p {
     font-size: 0.9em;
     line-height: 1.6;
     margin-bottom: 20px;
+    color: #fff;
 }
 
 /* Weather and warning sections */
@@ -84,17 +125,136 @@ aside.minimized .top .close {
     margin-bottom: 20px;
 }
 
-/* Warning section specific styling */
-.warning h3 {
-    color: red;
+
+/* Main content styling */
+main {
+    flex: 1;
+    padding: 20px;
 }
 
-.warning p {
+main h2 {
+    font-size: 4rem;
+    line-height: 0;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    color: var(--color-dark);
+}
+
+/* Header styling */
+header {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    transition: all 0.5s ease-in-out;
+    position: relative;
+}
+
+header.minimized {
+    padding: 5px 10px; /* Reduced padding for minimized state */
+    height: 20px; /* Height of the thin bar */
+}
+
+header .alert {
+    cursor: pointer; /* Make the alert clickable */
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    max-height: 100px; /* Default height */
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .alert.hide {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.2s ease-in, opacity 0.2s ease-in;
+}
+
+header .alert h3 {
+    margin-bottom: 5px;
     color: #fff;
 }
 
-/* Styling for material icons */
-.material-icons-sharp {
+header .alert p {
+    margin: 0;
+    color: #fff;
+}
+
+header .alert .material-symbols-outlined#close-alert {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+header.minimized .alert {
+    display: none;
+}
+
+header .material-symbols-outlined#open-alert {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.6);
+    transform: translateX(50%);
+}
+
+header.hide {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    height: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+
+/* Dashboard styling */
+main .dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+main .dashboard > div {
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top: 5rem;
+    box-shadow: var(--box-shadow);
+}
+
+.dashboard .card-big {
+    grid-column: span 2;
+    grid-row: span 10;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: var(--card-border-radius);
+    text-align: center; 
+}
+
+main .card {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    grid-row: span 2;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
     font-size: 1.5em;
-    color: #fff;
+    font-weight: bold;
+}
+
+main .dashboard > div:hover {
+    box-shadow: none;
+}
+
+main h2 {
+    margin-top: 80px;
 }
