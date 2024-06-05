@@ -8,19 +8,21 @@
     <!-- MATERIAL CDN -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <!-- STYLESHEET -->
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="container">
-        <aside id="sidebar">
+        <!-- LEFT SIDE START HERE-->
+        <aside id="sidebar-left">
             <div class="top">
-                <div class="logo" id="toggle-btn">
+                <div class="logo" id="toggle-btn-left">
                     <img src="/DashboardNuman/Source/leaves.png" alt="Logo"> 
                     <h2>Urban Gardening</h2>
                 </div>
             </div>
-            <div class="sidebar">
+            <div class="sidebar-content">
                 <!-- we want to integrate weather information in this sidebar -->
                 <h3>Weather Forecast</h3>
                 <p class="weather">
@@ -36,12 +38,14 @@
                 </p>
             </div>
         </aside>
+        <!-- LEFT SIDE END HERE-->
+
         <main>
             <header>
                 <div class="alert">
                     <h3>Warning :</h3>
                     <p>The temperature is low!</p>
-                    <span class="material-symbols-outlined" id="close-alert">more_horiz</span>
+                    <span class="material-symbols-outlined" id="close-alert">close</span>
                 </div>
                 <span class="material-symbols-outlined" id="open-alert" style="display:none;">more_horiz</span>
             </header>
@@ -74,6 +78,31 @@
                 </div>
             </div>
         </main>
+
+        <!-- RIGHT SIDE START HERE-->
+        <aside id="sidebar-right">
+            <div class="top">
+                <div class="logo" id="toggle-btn-right">
+                    <img src="/DashboardNuman/Source/tunes.png" alt="Logo"> 
+                    <h2>Control Board</h2>
+                </div>
+            </div>
+            <div class="sidebarright-content">
+                <div class="card">
+                    <h3>Water Pump</h3>
+                </div>
+                <div class="card">
+                    <h3>Jalousie</h3>
+                </div>
+                <div class="card">
+                    <h3>Fan</h3>
+                </div>
+                <div class="card">
+                    <h3>Humidifier</h3>
+                </div> 
+            </div>
+        </aside>
+        <!-- RIGHT SIDE END HERE-->
     </div>
     <!-- JAVASCRIPT -->
     <script src="./script.js"></script>

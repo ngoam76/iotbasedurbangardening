@@ -1,13 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById('toggle-btn');
-    const sidebar = document.getElementById('sidebar');
+    const toggleBtnLeft = document.getElementById('toggle-btn-left');
+    const sidebarLeft = document.getElementById('sidebar-left');
+    const toggleBtnRight = document.getElementById('toggle-btn-right');
+    const sidebarRight = document.getElementById('sidebar-right');
     const alertBox = document.querySelector('header .alert');
     const closeAlertBtn = document.getElementById('close-alert');
     const openAlertBtn = document.getElementById('open-alert');
     const header = document.querySelector('header');
 
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('minimized');
+    toggleBtnLeft.addEventListener('click', () => {
+        sidebarLeft.classList.toggle('minimized');
+    });
+
+    toggleBtnRight.addEventListener('click', () => {
+        sidebarRight.classList.toggle('minimized');
     });
 
     closeAlertBtn.addEventListener('click', () => {

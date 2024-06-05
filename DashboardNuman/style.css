@@ -9,7 +9,7 @@
     --color-light: #d4d4d4;
 
     --color-background: #fafafa;
-    --color-backgroundcard: #737373;
+    --color-backgroundcard: rgba(115,115,115, 0.9);
 
     --card-border-radius: 0.5rem;
     --border-radius-1: 0.4rem;
@@ -18,7 +18,8 @@
     --card-padding: 1.8rem;
     --padding-1: 1.2rem;
 
-    --box-shadow: 0 2rem 3rem var(--color-light);
+    --box-shadow: 0 0.5rem 1rem var(--color-light);
+    --box-shadow-side: 0rem 0rem 05rem rgba(115,115,115, 0.9);
 }
 
 /* Reset some basic elements */
@@ -45,72 +46,73 @@ h1 {
 /* Container styling */
 .container {
     display: flex;
+    justify-content: space-between;
 }
 
+/* -------------------------START SIDEBAR LEFT------------------------------- */
 /* Sidebar styling */
-aside {
+#sidebar-left {
     background-color: var(--color-backgroundcard); /* Semi-transparent background */
     padding: 20px;
     width: 300px;
     min-height: 100vh; /* Full height of the viewport */
-    box-shadow: 2px 0 5px var(--box-shadow);
-    transition: width 0.3s ease;
+    transition: width 0.3s ease; 
 }
 
 /* Minimized sidebar */
-aside.minimized {
+#sidebar-left.minimized {
     width: 20px;
 }
 
-aside.minimized .sidebar, aside.minimized .logo h2 {
+#sidebar-left.minimized .sidebar-content, #sidebar-left.minimized .logo h2 {
     display: none;
 }
 
-aside.minimized .top {
+#sidebar-left.minimized .top {
     justify-content: center;
 }
 
 /* Top section styling */
-.top {
+#sidebar-left .top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.logo {
+#sidebar-left .logo {
     display: flex;
     flex-direction: column;
     align-items: left;
     cursor: pointer;
 }
 
-.logo img {
+#sidebar-left .logo img {
     width: 50px;
     height: 50px;
     margin-right: 0px;
 }
 
-.logo h2 {
+#sidebar-left .logo h2 {
     font-size: 1.5em;
     color: #fff;
     text-align: center;
     margin-top: 20px;
 }
 
-#toggle-btn {
+#toggle-btn-left {
     cursor: pointer;
 }
 
 /* Sidebar content styling */
-.sidebar h3 {
+.sidebar-content h3 {
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 1.2em;
     color: #fff;
 }
 
-.sidebar p {
+.sidebar-content p {
     font-size: 0.9em;
     line-height: 1.6;
     margin-bottom: 20px;
@@ -123,8 +125,115 @@ aside.minimized .top {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
+
+}
+/* -------------------------END SIDEBAR LEFT------------------------------- */
+
+/* -------------------------START SIDEBAR RIGHT------------------------------- */
+/* Sidebar styling */
+#sidebar-right {
+    background-color: var(--color-backgroundcard); /* Semi-transparent background */
+    padding: 20px;
+    width: 300px;
+    min-height: 100vh; /* Full height of the viewport */
+    box-shadow: 2px 0 5px var(--box-shadow);
+    transition: width 0.3s ease;
 }
 
+/* Minimized sidebar */
+#sidebar-right.minimized {
+    width: 20px;
+}
+
+#sidebar-right.minimized .sidebarright-content, #sidebar-right.minimized .logo h2 {
+    display: none;
+}
+
+#sidebar-right.minimized .top {
+    justify-content: center;
+}
+
+/* Top section styling */
+#sidebar-right .top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#sidebar-right .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
+#sidebar-right .logo img {
+    width: 50px;
+    height: 50px;
+    margin-left: 0px;
+}
+
+#sidebar-right .logo h2 {
+    font-size: 1.5em;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#toggle-btn-right {
+    cursor: pointer;
+}
+
+/* Sidebar content styling */
+#sidebar-right .sidebar-content h3 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #fff;
+}
+
+#sidebar-right .sidebar-content p {
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* side bar content card */
+.sidebarright-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.sidebarright-content > div {
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.sidebarright-content .card {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    gap: 20px;
+}
+
+aside .card h3 {
+    margin-bottom: 5px;
+    color: var(--color-white);
+}
+
+aside .card p {
+    font-size: 1.5rem;
+    color: var(--color-light);
+}
+
+/* -------------------------END SIDEBAR RIGHT------------------------------- */
 
 /* Main content styling */
 main {
@@ -140,7 +249,7 @@ main h2 {
     color: var(--color-dark);
 }
 
-/* Header styling */
+/* Header/notification styling */
 header {
     background-color: rgba(0, 0, 0, 0.6);
     padding: 10px;
@@ -149,7 +258,7 @@ header {
     border-radius: 5px;
     box-shadow: var(--box-shadow);
     transition: all 0.5s ease-in-out;
-    position: relative;
+    position: center;
 }
 
 header.minimized {
@@ -164,7 +273,7 @@ header .alert {
     overflow: hidden;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: relative;
 }
 
 header .alert.hide {
@@ -209,7 +318,6 @@ header.hide {
     box-shadow: none;
 }
 
-
 /* Dashboard styling */
 main .dashboard {
     display: grid;
@@ -227,7 +335,7 @@ main .dashboard > div {
 
 .dashboard .card-big {
     grid-column: span 2;
-    grid-row: span 10;
+    grid-row: span 8;
     background-color: rgba(255, 255, 255, 0.2);
     padding: 20px;
     border-radius: var(--card-border-radius);
