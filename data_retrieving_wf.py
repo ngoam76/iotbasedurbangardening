@@ -1,27 +1,26 @@
 import requests
 import time
+import json
 
-def get_weather(api_key, city_name):
-    base_url = 'http://api.openweathermap.org/data/2.5/weather?'
-    complete_url = f'{base_url}q={city_name}&appid={api_key}&units=metric'
-    response = requests.get(complete_url)
-    
-    if response.status_code == 200:
-        data = response.json()
-        main = data['main']
-        weather = data['weather'][0]
-        temperature = main['temp']
-        pressure = main['pressure']
-        humidity = main['humidity']
-        weather_description = weather['description']
+def get_weather(api_key, city_name, interval=5):
+    while True:
+        weather_values = {}
+        base_url = 'http://api.openweathermap.org/data/2.5/weather?'
+        complete_url = f'{base_url}q={city_name}&appid={api_key}&units=metric'
+        response = requests.get(complete_url)
+
+        if response.status_code == 200:
+            data = response.json()
+            main = data['main']
+            weather = data['weather'][0]
+            weather_values['Temperature'] = main['temp']
+            weather_values['Pressure'] = main['pressure']
+            weather_values['Humidity'] = main['humidity']
+            weather_values['Weather description'] = weather['description']
         
-        print(f"\nCity: {city_name}")
-        print(f"Temperature: {temperature}°C")
-        print(f"Pressure: {pressure} hPa")
-        print(f"Humidity: {humidity}%")
-        print(f"Weather Description: {weather_description}")
-    else:
-        print(f"Error: {response.status_code}")
+        yield 'data: {}\n\n'.format(json.dumps(weather_values))
+        time.sleep(interval) 
+
 
 def main():
     # Replace 'your_api_key' with your actual OpenWeatherMap API key
