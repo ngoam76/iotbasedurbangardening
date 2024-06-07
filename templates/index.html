@@ -15,53 +15,146 @@
   </head>
   <body>
     <h1>Real-Time Data</h1>
-    <div id="data"></div>
+    <div>
+      <h2>Frost</h2>
+      <div id="frost"></div>
+    </div>
+    <div>
+      <h2>Weather Forecast</h2>
+      <div id="weatherforecast"></div>
+    </div>
 
     <script>
-      // Function to update the data on the web page
-      function updateData(data) {
-        var dataElement = document.getElementById("data");
-        dataElement.innerText = JSON.stringify(data, null, 4);
+      // Key-to-name mapping
+      var keyToNameMapping = {
+        1059: "Temperature",
+        1062: "Pressure",
+        1064: "Gas",
+        1065: "Humidity",
+        1066: "Visible Light",
+        1067: "Infrared",
+        1068: "UV",
+        1069: "Soil Moisture",
+      };
+
+      // Function to update the frost data on the web page
+      function updateFrostData(data) {
+        var frostCardsContainer = document.getElementById("frost");
+        frostCardsContainer.innerHTML = "";
+
+        for (var key in data) {
+          if (data.hasOwnProperty(key)) {
+            var card = document.createElement("div");
+            card.className = "card";
+
+            var cardTitle = document.createElement("h3");
+            cardTitle.innerText = keyToNameMapping[key] || "Unknown";
+
+            var cardValue = document.createElement("p");
+            cardValue.innerText = data[key];
+
+            card.appendChild(cardTitle);
+            card.appendChild(cardValue);
+
+            frostCardsContainer.appendChild(card);
+          }
+        }
       }
 
-      // Function to fetch real-time data from the server
-      function fetchData() {
-        fetch("/data")
+      // Function to update the weather forecast data on the web page
+      function updateWeatherForecastData(data) {
+        var weatherForecastContainer =
+          document.getElementById("weatherforecast");
+        weatherForecastContainer.innerHTML = "";
+
+        for (var key in data) {
+          if (data.hasOwnProperty(key)) {
+            var card = document.createElement("div");
+            card.className = "card";
+
+            var cardTitle = document.createElement("h3");
+            cardTitle.innerText = key;
+
+            var cardValue = document.createElement("p");
+            cardValue.innerText = data[key];
+
+            card.appendChild(cardTitle);
+            card.appendChild(cardValue);
+
+            weatherForecastContainer.appendChild(card);
+          }
+        }
+      }
+
+      // Function to fetch real-time frost data from the server
+      function fetchFrostData() {
+        fetch("/frost")
           .then((response) => response.text())
           .then((data) => {
             var jsonData = JSON.parse(data.slice(6)); // Remove 'data: ' prefix
-            updateData(jsonData);
+            updateFrostData(jsonData);
           })
           .catch((error) => console.error("Error:", error));
       }
 
-      // Function to create EventSource object and handle SSE updates
-      function connectToSSE() {
-        var eventSource = new EventSource("/data");
+      // Function to fetch real-time weather forecast data from the server
+      function fetchWeatherForecastData() {
+        fetch("/weatherforecast")
+          .then((response) => response.text())
+          .then((data) => {
+            var jsonData = JSON.parse(data.slice(6)); // Remove 'data: ' prefix
+            updateWeatherForecastData(jsonData);
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      function fetchData() {
+        fetchFrostData();
+        fetchWeatherForecastData();
+      }
+
+      // Function to create EventSource object to receive real-time frost data updates
+      function connectToFrostSSE() {
+        var frostEventSource = new EventSource("/frost");
 
         // Event listener for receiving data updates
-        eventSource.onmessage = function (event) {
+        frostEventSource.onmessage = function (event) {
           var data = JSON.parse(event.data);
-          updateData(data);
+          updateFrostData(data);
         };
 
         // Event listener for handling SSE errors
-        eventSource.onerror = function (error) {
-          console.error("EventSource failed:", error);
+        frostEventSource.onerror = function (error) {
+          console.error("frostEventSource failed:", error);
           // Automatically reconnect after SSE error
-          setTimeout(connectToSSE, 1000);
+          setTimeout(connectToFrostSSE, 1000);
+        };
+      }
+
+      // Function to create EventSource object to receive real-time weather data updates
+      function connectToWeatherForecastSSE() {
+        var weatherForecastEventSource = new EventSource("/weatherforecast");
+
+        // Event listener for receiving data updates
+        weatherForecastEventSource.onmessage = function (event) {
+          var data = JSON.parse(event.data);
+          updateWeatherForecastData(data);
+        };
+
+        // Event listener for handling SSE errors
+        weatherForecastEventSource.onerror = function (error) {
+          console.error("weatherForecastEventSource failed:", error);
+          // Automatically reconnect after SSE error
+          setTimeout(connectToWeatherForecastSSE, 1000);
         };
       }
 
       // Fetch real-time data initially
       fetchData();
 
-      // Set interval to fetch real-time data periodically
-      setInterval(fetchData, 10000); // Fetch every 10 seconds
-      setInterval(updateData, 15000);
-
       // Connect to SSE for real-time updates
-      connectToSSE();
+      connectToFrostSSE();
+      connectToWeatherForecastSSE();
     </script>
   </body>
 </html>
