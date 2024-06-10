@@ -2,24 +2,35 @@ import requests
 import time
 import json
 
-def get_weather(api_key, city_name, interval=5):
+def get_weather(api_key, city_name, interval=60):
     while True:
         weather_values = {}
         base_url = 'http://api.openweathermap.org/data/2.5/weather?'
         complete_url = f'{base_url}q={city_name}&appid={api_key}&units=metric'
-        response = requests.get(complete_url)
-
-        if response.status_code == 200:
-            data = response.json()
-            main = data['main']
-            weather = data['weather'][0]
-            weather_values['Temperature'] = main['temp']
-            weather_values['Pressure'] = main['pressure']
-            weather_values['Humidity'] = main['humidity']
-            weather_values['Weather description'] = weather['description']
+        backoff_time = interval
         
-        yield 'data: {}\n\n'.format(json.dumps(weather_values))
-        time.sleep(interval) 
+        while True:
+            response = requests.get(complete_url)
+            if response.status_code == 200:
+                data = response.json()
+                main = data['main']
+                wind = data['wind']
+                weather = data['weather'][0]
+                weather_values['Temperature'] = main['temp']
+                weather_values['Wind Speed'] = wind['speed']
+                weather_values['Humidity'] = main['humidity']
+                weather_values['Weather description'] = weather['description']
+                yield 'data: {}\n\n'.format(json.dumps(weather_values))
+                break
+            elif response.status_code == 429:
+                print(f"Failed to retrieve data: {response.status_code}. Retrying in {backoff_time} seconds.")
+                time.sleep(backoff_time)
+                backoff_time *= 2  # Exponential backoff
+            else:
+                print(f"Failed to retrieve data: {response.status_code}")
+                break
+        
+        time.sleep(interval)
 
 
 def main():
