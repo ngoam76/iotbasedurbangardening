@@ -1,0 +1,593 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* -------------------- ROOT VARIABLES -------------------- */
+:root {
+    --color-white: #fff;
+    --color-info-dark: #e5e5e5;
+    --color-info-light: #fafafa;
+    --color-dark: #262626;
+    --color-light: #d4d4d4;
+
+    --color-background: #fafafa;
+    --color-backgroundcard: rgba(0, 0, 0, 0.6);
+
+    --card-border-radius: 0.5rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 0.5rem 1rem var(--color-light);
+    --box-shadow-side: 0rem 0rem 05rem rgba(115,115,115, 0.9);
+}
+
+/* Reset some basic elements */
+body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styling */
+body {
+    font-family: roboto, sans-serif;
+    /* background: url('./images/background.jpg') no-repeat center center fixed; */
+    background-size: cover;
+    background-color: var(--color-background);
+    /* color: #fff; */
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--color-dark);
+}
+
+/* Container styling */
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* -------------------------START SIDEBAR LEFT------------------------------- */
+/* Sidebar styling */
+#sidebar-left {
+    background-color: var(--color-backgroundcard); /* Semi-transparent background */
+    padding: 20px;
+    width: 300px;
+    min-height: 100vh; /* Full height of the viewport */
+    transition: width 0.3s ease; 
+}
+
+/* Minimized sidebar */
+#sidebar-left.minimized {
+    width: 20px;
+}
+
+#sidebar-left.minimized .sidebar-content, #sidebar-left.minimized .logo h2 {
+    display: none;
+}
+
+#sidebar-left.minimized .top {
+    justify-content: center;
+}
+
+/* Top section styling */
+#sidebar-left .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#sidebar-left .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    cursor: pointer;
+}
+
+#sidebar-left .logo img {
+    width: 50px;
+    height: 50px;
+    margin-right: 0px;
+}
+
+#sidebar-left .logo h2 {
+    font-size: 1.5em;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#toggle-btn-left {
+    cursor: pointer;
+}
+
+/* Sidebar content styling */
+.sidebar-content h3 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #fff;
+}
+
+.sidebar-content p {
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* Weather and warning sections */
+.warning {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.weatherwidget {
+    background: linear-gradient(-310deg, #015d65,#bfff00 );
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.weather-icon{
+    width: 60px;
+    margin-top: 10px;
+} 
+
+.weatherwidget h1.temp{
+    color: var(--color-white);
+    font-size: 1.5rem;
+    margin-top: 5px;
+}
+
+.weatherwidget h2.city{
+    color: var(--color-white);
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: 1px;
+}
+
+.weatherwidget p{
+    font-size: 0.8rem;
+    font-weight: 100;
+    margin-bottom: 5px;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    margin-top: 20px;
+}
+.col {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    flex-direction: column;
+}
+.col img {
+    width: 40px;
+    margin-right: 5px;
+}
+.col .value {
+    font-size: 1rem;
+    font-weight: bold;
+}
+.col .label {
+    font-size: 0.8rem;
+    margin-top: -5px;
+}
+
+/* -------------------------END SIDEBAR LEFT------------------------------- */
+
+/* -------------------------START SIDEBAR RIGHT------------------------------- */
+/* Sidebar styling */
+#sidebar-right {
+    background-color: var(--color-backgroundcard); /* Semi-transparent background */
+    padding: 20px;
+    width: 300px;
+    min-height: 100vh; /* Full height of the viewport */
+    box-shadow: 2px 0 5px var(--box-shadow);
+    transition: width 0.3s ease;
+}
+
+/* Minimized sidebar */
+#sidebar-right.minimized {
+    width: 20px;
+}
+
+#sidebar-right.minimized .sidebarright-content, #sidebar-right.minimized .logo h2 {
+    display: none;
+}
+
+#sidebar-right.minimized .top {
+    justify-content: center;
+}
+
+/* Top section styling */
+#sidebar-right .top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#sidebar-right .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
+#sidebar-right .logo img {
+    width: 50px;
+    height: 50px;
+    margin-left: 0px;
+}
+
+#sidebar-right .logo h2 {
+    font-size: 1.5em;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#toggle-btn-right {
+    cursor: pointer;
+}
+
+/* Sidebar content styling */
+#sidebar-right .sidebar-content h3 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #fff;
+}
+
+#sidebar-right .sidebar-content p {
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* side bar content card */
+.sidebarright-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.sidebarright-content > div {
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.sidebarright-content .card {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    gap: 20px;
+}
+
+aside .card h3 {
+    margin-bottom: 5px;
+    color: var(--color-white);
+}
+
+aside .card p {
+    font-size: 1.5rem;
+    color: var(--color-light);
+}
+
+/* -------------------------SLIDER BUTTON RIGHT SIDE------------------------------- */
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+  .b-example-divider {
+    width: 100%;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  }
+
+  .b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+  }
+
+  .bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+  }
+
+  .nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+  }
+
+  .nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .btn-bd-primary {
+    --bd-violet-bg: #712cf9;
+    --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bd-violet-bg);
+    --bs-btn-border-color: var(--bd-violet-bg);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: #6528e0;
+    --bs-btn-hover-border-color: #6528e0;
+    --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #5a23c8;
+    --bs-btn-active-border-color: #5a23c8;
+  }
+
+  .bd-mode-toggle {
+    z-index: 1500;
+  }
+
+  .bd-mode-toggle .dropdown-menu .active .bi {
+    display: block !important;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background: linear-gradient(90deg, #015d65,#bfff00 );
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  .content p {
+    text-align: justify;
+}
+
+/* -------------------------END SLIDER BUTTON------------------------------- */
+/* -------------------------END SIDEBAR RIGHT------------------------------- */
+
+/* Main content styling */
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+main h2 {
+    font-size: 4rem;
+    line-height: 0;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    color: var(--color-dark);
+}
+
+/* Header/notification styling */
+header {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    transition: all 0.5s ease-in-out;
+    position: center;
+}
+
+header.minimized {
+    padding: 5px 10px; /* Reduced padding for minimized state */
+    height: 20px; /* Height of the thin bar */
+}
+
+header .alert {
+    cursor: pointer; /* Make the alert clickable */
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    max-height: 100px; /* Default height */
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: relative;
+}
+
+header .alert.hide {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.2s ease-in, opacity 0.2s ease-in;
+}
+
+header .alert h3 {
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+header .alert p {
+    margin: 0;
+    color: #fff;
+}
+
+header .alert .material-symbols-outlined#close-alert {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+header.minimized .alert {
+    display: none;
+}
+
+header .material-symbols-outlined#open-alert {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.6);
+    transform: translateX(50%);
+}
+
+header.hide {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    height: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* Dashboard styling */
+main .dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 4fr);
+    gap: 1rem;
+}
+
+main .dashboard > div {
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top: 5rem;
+    box-shadow: var(--box-shadow);
+}
+
+.dashboard .card-big {
+    grid-column: span 2;
+    grid-row: span 8;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: var(--card-border-radius);
+    text-align: center; 
+}
+
+.dashboard .card-bigtwo {
+    grid-column: span 2;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: var(--card-border-radius);
+    text-align: center; 
+}
+
+main .dashboard .card-big img {
+    width: 500px;
+    height: 500px;
+    margin-top: 0px;
+}
+
+.card-big p {
+    font-size: 1em;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: justify;
+}
+
+main .card {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    grid-row: span 2;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+main .dashboard > div:hover {
+    box-shadow: none;
+}
+
+main h2 {
+    margin-top: 80px;
+}
+
+
