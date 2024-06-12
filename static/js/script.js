@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   var keyToNameMapping = {
     1059: "temperature-value",
     1062: "pressure-value",
-    1064: "gas-value",
+    // 1064: "gas-value",
     1065: "humidity-value",
     1066: "visible-light-value",
     1067: "infrared-value",
@@ -58,12 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.weatherwidget .temp').innerHTML = `${data['Temperature']}°C`;
       document.querySelector('.weatherwidget .value_humidity').innerHTML = `${data['Humidity']}%`;
       document.querySelector('.weatherwidget .value_wind').innerHTML = `${data['Wind Speed']} km/h`;
+
+      const weatherIcon = document.querySelector('.weatherwidget .weather-icon');
   
       if(data.weather[0].main == "Clouds") {
-            weatherIcon.src = "static/images/weather/w_cloud.png";
+        weatherIcon.src = "static/images/weather/w_cloud.png";
       }
       else if(data.weather[0].main == "Clear") {
-            weatherIcon.src = "static/images/weather/w_clear_day.png";
+        weatherIcon.src = "static/images/weather/w_clear_day.png";
       }
       else if(data.weather[0].main == "Rain") {
         weatherIcon.src = "static/images/weather/w_rainy.png";
