@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeAlertBtn = document.getElementById('close-alert');
     const openAlertBtn = document.getElementById('open-alert');
     const header = document.querySelector('header');
+    const expandBtns = document.querySelectorAll('.expandBtn');
+    const closeBtns = document.querySelectorAll('.closeBtn');
   
     toggleBtnLeft.addEventListener('click', () => {
         sidebarLeft.classList.toggle('minimized');
@@ -27,7 +29,40 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.remove('hide');
         openAlertBtn.style.display = 'none';
     });
-  });
+
+    expandBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const card = btn.closest('.card');
+            const overlay = card.querySelector('.overlay');
+            const expandedCard = overlay.querySelector('.expanded-card');
+
+            const cardRect = card.getBoundingClientRect();
+            const sidebarRect = card.closest('aside').getBoundingClientRect();
+
+            expandedCard.style.width = `${sidebarRect.width}px`;
+            expandedCard.style.height = `${sidebarRect.height}px`;
+            expandedCard.style.top = `${cardRect.top - sidebarRect.top}px`;
+            expandedCard.style.left = `${cardRect.left - sidebarRect.left}px`;
+            
+            overlay.style.display = 'block';
+
+            setTimeout(() => {
+                expandedCard.style.width = '100%';
+                expandedCard.style.height = '100%';
+                expandedCard.style.top = '0';
+                expandedCard.style.left = '0';
+            }, 10); // Allow CSS to apply the initial size first
+        });
+    });
+
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const overlay = btn.closest('.overlay');
+            overlay.style.display = 'none';
+        });
+    });
+});
+
   
   // Key-to-name mapping
   var keyToNameMapping = {
@@ -40,6 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
     1068: "uv-value",
     1069: "soil-moisture-value",
   };
+
+
   
   // Function to update the frost data on the web page
   function updateFrostData(data) {
@@ -53,33 +90,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
-  // Function to update the weather forecast data on the web page
   function updateWeatherWidget(data) {
-      document.querySelector('.weatherwidget .temp').innerHTML = `${data['Temperature']}°C`;
-      document.querySelector('.weatherwidget .value_humidity').innerHTML = `${data['Humidity']}%`;
-      document.querySelector('.weatherwidget .value_wind').innerHTML = `${data['Wind Speed']} km/h`;
+    console.log("Received data:", data);  // Log the entire data object
 
-      const weatherIcon = document.querySelector('.weatherwidget .weather-icon');
-  
-      if(data.weather[0].main == "Clouds") {
-        weatherIcon.src = "static/images/weather/w_cloud.png";
-      }
-      else if(data.weather[0].main == "Clear") {
-        weatherIcon.src = "static/images/weather/w_clear_day.png";
-      }
-      else if(data.weather[0].main == "Rain") {
-        weatherIcon.src = "static/images/weather/w_rainy.png";
-      }
-      else if(data.weather[0].main == "Drizzle") {
-        weatherIcon.src = "static/images/weather/w_rainy_light.png";
-      }
-      else if(data.weather[0].main == "Snow") {
-        weatherIcon.src = "static/images/weather/w_snowing.png";
-      }
-
-      document.querySelector(".weather").style.display = "block";
+    const weatherDescription = data['Weather description'];
+    
+    if (!weatherDescription) {
+        console.error("Weather data is missing or malformed:", data);
+        return;
     }
-  
+
+    // Round the temperature value
+    const roundedTemperature = Math.round(data['Temperature']);
+
+    document.querySelector('.weatherwidget .temp').innerHTML = `${roundedTemperature}°C`;
+    document.querySelector('.weatherwidget .value_humidity').innerHTML = `${data['Humidity']}%`;
+    document.querySelector('.weatherwidget .value_wind').innerHTML = `${data['Wind Speed']} km/h`;
+
+    const weatherIcon = document.querySelector('.weatherwidget .weather-icon');
+
+    console.log("Weather condition:", weatherDescription);  // Log the weather condition
+
+    if (weatherDescription.includes("clouds")) {
+        weatherIcon.src = "/static/images/weather/w_cloud.png";
+    } else if (weatherDescription.includes("clear")) {
+        weatherIcon.src = "/static/images/weather/w_clear_day.png";
+    } else if (weatherDescription.includes("rain")) {
+        weatherIcon.src = "/static/images/weather/w_rainy.png";
+    } else if (weatherDescription.includes("drizzle")) {
+        weatherIcon.src = "/static/images/weather/w_rainy_light.png";
+    } else if (weatherDescription.includes("snow")) {
+        weatherIcon.src = "/static/images/weather/w_snowing.png";
+    } else {
+        console.warn("Unknown weather condition:", weatherDescription);  // Log if the condition doesn't match any cases
+    }
+
+    const weatherWidget = document.querySelector(".weatherwidget");
+    if (weatherWidget) {
+        weatherWidget.style.display = "block";
+    } else {
+        console.error("Element with class 'weatherwidget' not found in the DOM.");
+    }
+  }
+
   // Function to fetch real-time frost data from the server
   function fetchFrostData() {
     fetch("/frost")
