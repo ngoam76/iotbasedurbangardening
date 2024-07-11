@@ -45,7 +45,8 @@
                 <h3>Warning !</h3>
                 <p class="warning">
                     Everything is ok</p> 
-                <p class="warning">Everything is not ok
+                <p class="warning">
+                    Everything is not ok
                 </p>
             </div>
         </aside>
@@ -112,62 +113,66 @@
                 </div>
             </div>
             <div class="sidebarright-content">
+                <!-- Water Pump -->
                 <div class="card">
-                    <h3>Water Pump</h3>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <button class="expandBtn">Expand</button> <!-- giving expandable button -->
+                    <!-- Expandable features -->
+                    <button class="expandBtn">Water Pump</button> <!-- giving expandable button -->
                     <div class="overlay" id="overlay-water-pump">
                         <div class="expanded-card">
-                            <button class="closeBtn">Close</button>
+                            <h3>Water Pump</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                               Ut enim ad minim veniam.</p>
+                             <!-- move switch into expand area -->
+                             <div class="button-group">
+                                <button class="on-btn" onclick="sendCommand('waterPump', '01')">On</button>
+                                <button class="off-btn" onclick="sendCommand('waterPump', '00')">Off</button>
+                            </div>
+                            <button class="closeBtn">X</button>
                             <!-- Add your expanded card content here -->
                         </div>
                     </div>
                 </div>
+                <!-- Curtain -->
                 <div class="card">
-                    <h3>Jalousie</h3>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <button class="expandBtn">Expand</button> <!-- giving expandable button -->
+                    <button class="expandBtn">Curtain</button> <!-- giving expandable button -->
                     <div class="overlay" id="overlay-jalousie">
                         <div class="expanded-card">
-                            <button class="closeBtn">Close</button>
+                            <h3>Curtain</h3>
+                            <!-- move switch into expand area -->
+                            <p class="curtain">Open the curtain</p>
+                            <div class="button-group">
+                                <button class="on-btn" onclick="sendCommand('motor1', '01')">On</button>
+                                <button class="off-btn" onclick="sendCommand('motor1', '00')">Off</button>
+                            </div>
+                            <p class="curtain">Close the curtain</p>
+                            <div class="button-group">
+                                <button class="on-btn" onclick="sendCommand('motor2', '01')">On</button>
+                                <button class="off-btn" onclick="sendCommand('motor2', '00')">Off</button>
+                            </div>
+                            <button class="closeBtn">X</button>
                             <!-- Add your expanded card content here -->
                         </div>
                     </div>
                 </div>
+                 <!-- Fan -->
                 <div class="card">
-                    <h3>Fan</h3>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <button class="expandBtn">Expand</button> <!-- giving expandable button -->
+                    <button class="expandBtn">Fan</button> <!-- giving expandable button -->
                     <div class="overlay" id="overlay-fan">
                         <div class="expanded-card">
-                            <button class="closeBtn">Close</button>
+                            <h3>Fan</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Ut enim ad minim veniam.</p>
+                            <div class="button-group">
+                                <button class="on-btn" onclick="sendCommand('fan', '01')">On</button>
+                                <button class="off-btn" onclick="sendCommand('fan', '00')">Off</button>
+                            </div>
+                            <button class="closeBtn">X</button>
                             <!-- Add your expanded card content here -->
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <h3>Humidifier</h3>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <button class="expandBtn">Expand</button> <!-- giving expandable button -->
-                    <div class="overlay" id="overlay-humidifier">
-                        <div class="expanded-card">
-                            <button class="closeBtn">Close</button>
-                            <!-- Add your expanded card content here -->
-                        </div>
-                    </div>
-                </div> 
             </div>
         </aside>
         <!-- RIGHT SIDE END HERE-->

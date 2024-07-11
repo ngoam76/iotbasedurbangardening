@@ -6,11 +6,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-
-@app.route('/dashboard')
-def dashboard():
     return render_template('dashboard.html')
+
+# @app.route('/dashboard')
+# def dashboard():
+#     return render_template('dashboard.html')
 
 @app.route('/css/<path:path>')
 def send_css(path):

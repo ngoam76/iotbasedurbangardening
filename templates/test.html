@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fan Control</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+      function sendCommand(device, command) {
+        var port;
+        switch (device) {
+          case "fan":
+            port = 34; // Replace with the actual port for controlling the fan
+            break;
+          case "motor1":
+            port = 35; // Replace with the actual port for controlling motor1
+            break;
+          case "motor2":
+            port = 36; // Replace with the actual port for controlling motor2
+            break;
+          case "waterPump":
+            port = 37; // Replace with the actual port for controlling the water pump
+            break;
+          default:
+            console.error("Unknown device:", device);
+            return;
+        }
+        var payload = port.toString(16).padStart(2, "0") + command;
+        var options = {
+          async: true,
+          crossDomain: true,
+          url: "https://iot-lns.swm.de/1/rest",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
+            Authorization:
+              "Bearer vgEAGAAAAA5pb3QtbG5zLnN3bS5kZbtqvQH--h5qpruoSK4aJBo=",
+            //Host: "iot-lns.swm.de",
+            //Connection: "keep-alive",
+            "cache-control": "no-cache",
+          },
+          processData: false,
+          data: JSON.stringify({
+            cmd: "tx",
+            EUI: "002A862DA290C679",
+            port: port,
+            confirmed: false,
+            data: payload,
+            appid: "BE01000A",
+          }),
+        };
+
+        jQuery.ajaxPrefilter(function (options) {
+          if (options.crossDomain && jQuery.support.cors) {
+            options.url = "http://localhost:8080/" + options.url;
+          }
+        });
+
+        $.ajax(options)
+          .done(function (response) {
+            console.log(response);
+          })
+          .fail(function (jqXHR, textStatus, errorThrown) {
+            console.error("Error sending command:", textStatus, errorThrown);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <!-- need to integrate this to dashboard -->
+    <h1>Device Control</h1>
+    <h2>Fan</h2>
+    <button onclick="sendCommand('fan', '01')">Turn On</button>
+    <button onclick="sendCommand('fan', '00')">Turn Off</button>
+
+    <h2>Motor 1</h2>
+    <button onclick="sendCommand('motor1', '01')">Turn On</button>
+    <button onclick="sendCommand('motor1', '00')">Turn Off</button>
+
+    <h2>Motor 2</h2>
+    <button onclick="sendCommand('motor2', '01')">Turn On</button>
+    <button onclick="sendCommand('motor2', '00')">Turn Off</button>
+
+    <h2>Water Pump</h2>
+    <button onclick="sendCommand('waterPump', '01')">Turn On</button>
+    <button onclick="sendCommand('waterPump', '00')">Turn Off</button>
+  </body>
+</html>

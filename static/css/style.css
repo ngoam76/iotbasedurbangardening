@@ -263,7 +263,7 @@ h1 {
 /* side bar content card */
 .sidebarright-content {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 1rem;
 }
 
@@ -285,7 +285,7 @@ h1 {
     align-items: center; 
     justify-content: space-between; 
     gap: 5px; 
-    height: 150px; 
+    height: 50px; 
 }
 
 aside .card h3 {
@@ -318,49 +318,48 @@ aside .card p {
     background: linear-gradient(-310deg, rgba(1, 93, 101, 0.8), rgba(191, 255, 0, 0.8));
     border-radius: 10px;
     padding: 20px;
-    border-radius: 10px;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+    height: 50%;
     position: absolute;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .closeBtn {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: white;
     border: none;
     cursor: pointer;
+    font-size: 16px;
+    color: whitesmoke;
 }
 
 .expandBtn {
-    background-color: #f8f9fa;
-    border: 1px solid #f8f9fa;
-    border-radius: 4px;
-    color: #3c4043;
+    background-color: var(--color-light);
+    border: 1px solid var(--color-info-dark);
+    border-radius: 3px;
+    color: var(--color-white);
     cursor: pointer;
-    font-family: arial,sans-serif;
-    font-size: 14px;
-    height: 20px;
-    line-height: 20px;
-    min-width: 54px;
-    padding: 0 16px;
+    font-size: 1em;
+    font-weight: 800;
+    height: 100%;
+    width: 100%;
     text-align: center;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    white-space: pre;
-    margin-top: 20px;
 }
 
 .expandBtn:hover {
   border-color: #dadce0;
   box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
-  color: #202124;
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .expandBtn:focus {
@@ -368,6 +367,69 @@ aside .card p {
   outline: none;
 }
 
+aside .card .expanded-card h3 {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    color: var(--color-white);
+    font-size: 26px;
+    flex-grow: 1;
+    text-align: center;
+}
+
+aside .card .expanded-card p {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    color: var(--color-white);
+    font-size: 16px;
+    flex-grow: 1;
+    text-align: justify;
+}
+
+aside .card .expanded-card p.curtain {
+    margin-top: 10px;
+    margin-bottom: 10px; /* Adjust the margin as needed */
+    color: var(--color-white);
+    font-size: 16px;
+    text-align: center;
+    flex-grow: 0;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px; /* Adjust this to position the buttons */
+}
+
+.on-btn, .off-btn {
+    background-color: var(--color-light);
+    color: var(--color-white);
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 20px;
+    height: 45px; /* Adjust the height if needed */
+    width: 150px;
+    line-height: 30px;
+    padding: 0 16px;
+    text-align: center;
+    user-select: none;
+    touch-action: manipulation;
+    white-space: pre;
+    margin: 0 5px; /* Space between the buttons */
+}
+
+.on-btn:hover, .off-btn:hover {
+    background-color: rgba(0, 0, 0, .1); /* Adjust for hover effect */
+}
+
+.on-btn.active {
+    background-color: rgba(191, 255, 0, 0.8); /* Active color for On button */
+}
+
+/* .off-btn.active {
+    background-color: ; /* Active color for Off button */
+/* } */ 
 
 /* -------------------------SLIDER BUTTON RIGHT SIDE------------------------------- */
 
@@ -485,11 +547,11 @@ aside .card p {
   }
   
   input:checked + .slider {
-    background: linear-gradient(90deg, #015d65,#bfff00 );
+    background: rgba(191, 255, 0, 0.8);
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+    box-shadow: grey;
   }
   
   input:checked + .slider:before {
